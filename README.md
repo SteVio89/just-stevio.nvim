@@ -39,6 +39,8 @@ Open a project that has a `justfile`, then either:
 
 A fuzzy list of the recipes appears, each shown with its doc comment (the `#` line above the recipe). Pick one and it runs in a terminal split at the bottom of the window.
 
+If the recipe takes parameters, you are asked for each one before it runs. The prompt shows the parameter name and, when it has a default, that default in parentheses. Leave a parameter blank to fall back to its default; a required parameter is asked again until you give it a value. Variadic parameters (`+` and `*`) accept several values separated by spaces on the one line. Press `<Esc>` at any prompt to cancel without running.
+
 ## Configuration
 
 There is none yet. The `:Just` command and the `<leader>j` mapping are registered automatically. If you want a different key, map it yourself and skip the default:
@@ -49,7 +51,7 @@ vim.keymap.set("n", "<leader>r", "<cmd>Just<cr>", { desc = "Run a just recipe" }
 
 ## Limitations
 
-- Recipes run as `just <name>` with no extra arguments. Recipes whose parameters have defaults will use them; recipes with required parameters will fail until argument support is added.
+- Parameter values are split on whitespace, so a single variadic value cannot itself contain a space.
 - The output split is a plain terminal buffer. Closing and reusing it is left to you for now.
 
 ## License
