@@ -15,7 +15,7 @@ jobs:
         uses: rhysd/action-setup-vim@v1
         with:
           neovim: true
-          version: v.12.3
+          version: v0.12.3
 
       - name: Install just
         uses: extractions/setup-just@v2
