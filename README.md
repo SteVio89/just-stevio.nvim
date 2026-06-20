@@ -1,5 +1,7 @@
 # just-stevio.nvim
 
+![tests](https://github.com/SteVio89/just-stevio.nvim/actions/workflows/test.yml/badge.svg)
+
 Run [just](https://github.com/casey/just) recipes from inside Neovim. It reads the recipes from your justfile, lets you pick one with a fuzzy finder, and runs it in a terminal split so you can watch the output live.
 
 It exists because my usual workflow is a terminal split below the editor where I type `just run`, `just test`, `just build` over and over. This keeps that workflow but skips the typing and the context switch.
