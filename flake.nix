@@ -24,6 +24,8 @@
           default = pkgs.mkShell {
             packages = with pkgs; [
               lua
+              just
+              yaml-language-server
               # devhelper:packages
             ];
           };

@@ -12,11 +12,13 @@ function M.recipes()
 
 	local recipes = {}
 	for name, recipe in pairs(data.recipes) do
-		table.insert(recipes, {
-			name = name,
-			doc = recipe.doc,
-			params = recipe.parameters,
-		})
+		if not recipe.private then
+			table.insert(recipes, {
+				name = name,
+				doc = recipe.doc,
+				params = recipe.parameters,
+			})
+		end
 	end
 	return recipes
 end
