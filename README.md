@@ -27,34 +27,60 @@ With [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
 {
-  "stevio/just-stevio.nvim",
+  "SteVio89/just-stevio.nvim",
   dependencies = { "ibhagwan/fzf-lua" },
 }
 ```
 
 ## Usage
 
-Open a project that has a `justfile`, then either:
+Open a project that has a `justfile` and run `:Just`. To open the picker with a key, set `keymaps.open` (see Configuration).
 
-- press `<leader>j`, or
-- run `:Just`
-
-A fuzzy list of the recipes appears, each shown with its doc comment (the `#` line above the recipe). Pick one and it runs in a terminal split at the bottom of the window.
+A fuzzy list of the recipes appears, each shown with its doc comment (the `#` line above the recipe). Pick one and it runs in a terminal split (at the bottom of the window by default).
 
 If the recipe takes parameters, you are asked for each one before it runs. The prompt shows the parameter name and, when it has a default, that default in parentheses. Leave a parameter blank to fall back to its default; a required parameter is asked again until you give it a value. Variadic parameters (`+` and `*`) accept several values separated by spaces on the one line. Press `<Esc>` at any prompt to cancel without running.
 
+The split is a real terminal, so a recipe that asks for input works, just type your answer while it runs. Once the recipe finishes the split stays open in normal mode so you can scroll back through the output; press `q` to close it.
+
 ## Configuration
 
-There is none yet. The `:Just` command and the `<leader>j` mapping are registered automatically. If you want a different key, map it yourself and skip the default:
+The `:Just` command works without any setup. Call `setup` to override the defaults, every key is optional:
 
 ```lua
-vim.keymap.set("n", "<leader>r", "<cmd>Just<cr>", { desc = "Run a just recipe" })
+require("just-stevio").setup({
+  executable = "just",          -- the just binary to run
+  window = {
+    position = "botright",      -- where the output split opens
+    size = 15,                  -- its height in lines (width in columns for a vertical split)
+  },
+  picker = {
+    prompt = "just> ",          -- prompt shown in the fuzzy finder
+  },
+  keymaps = {
+    open = nil,                 -- key that opens the picker; unset means no mapping
+    close = "q",                -- key that closes the output split
+  },
+})
 ```
+
+With lazy.nvim you can pass the same table as `opts`:
+
+```lua
+{
+  "SteVio89/just-stevio.nvim",
+  dependencies = { "ibhagwan/fzf-lua" },
+  opts = {
+    keymaps = { open = "<leader>j" },
+  },
+}
+```
+
+`position` accepts any Vim split modifier, for example `"vertical botright"` for a full-height panel on the right.
 
 ## Limitations
 
 - Parameter values are split on whitespace, so a single variadic value cannot itself contain a space.
-- The output split is a plain terminal buffer. Closing and reusing it is left to you for now.
+- Each run opens its own split; there is no single window that gets reused.
 
 ## License
 
