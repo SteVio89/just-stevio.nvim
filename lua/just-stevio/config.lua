@@ -24,6 +24,10 @@ function M.setup(opts)
 		vim.notify("just-stevio: window.size must be a positive number", vim.log.levels.WARN)
 		M.options.window.size = M.defaults.window.size
 	end
+	if type(M.options.window.position) ~= "string" then
+		vim.notify("just-stevio: window.position must be a string", vim.log.levels.WARN)
+		M.options.window.position = M.defaults.window.position
+	end
 	if type(M.options.executable) ~= "string" then
 		vim.notify("just-stevio: executable must be a string", vim.log.levels.WARN)
 		M.options.executable = M.defaults.executable
