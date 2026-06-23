@@ -1,7 +1,8 @@
+local config = require("just-stevio.config")
 local M = {}
 
 function M.recipes()
-	local result = vim.system({ "just", "--dump", "--dump-format", "json" }, { text = true }):wait()
+	local result = vim.system({ config.options.executable, "--dump", "--dump-format", "json" }, { text = true }):wait()
 
 	if result.code ~= 0 then
 		vim.notify("just failed: " .. result.stderr, vim.log.levels.ERROR)

@@ -1,3 +1,4 @@
+local config = require("just-stevio.config")
 local just = require("just-stevio.just")
 local runner = require("just-stevio.runner")
 local prompt = require("just-stevio.prompt")
@@ -20,7 +21,7 @@ function M.pick()
 	end
 
 	fzf.fzf_exec(entries, {
-		prompt = "just> ",
+		prompt = config.options.picker.prompt,
 		actions = {
 			["default"] = function(selected)
 				local recipe = by_display[selected[1]]

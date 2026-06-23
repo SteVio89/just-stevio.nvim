@@ -1,16 +1,17 @@
+local config = require("just-stevio.config")
 local M = {}
 
 function M.run(recipe_name, args)
-	vim.cmd("botright 15split")
+	vim.cmd(("%s %dsplit"):format(config.options.window.position, config.options.window.size))
 
 	local buf = vim.api.nvim_create_buf(false, true)
 	vim.api.nvim_win_set_buf(0, buf)
 
-	vim.keymap.set("n", "q", function()
+	vim.keymap.set("n", config.options.keymaps.close, function()
 		vim.api.nvim_buf_delete(buf, { force = true })
 	end, { buffer = buf, nowait = true })
 
-	local cmd = { "just", recipe_name }
+	local cmd = { config.options.executable, recipe_name }
 	vim.list_extend(cmd, args or {})
 
 	vim.fn.jobstart(cmd, {
